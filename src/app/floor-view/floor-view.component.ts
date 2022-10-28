@@ -2,7 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
 import { fabric } from 'fabric';
 import { Canvas } from 'fabric/fabric-impl';
-import { ROOM } from '../room';
+import { ROOME } from '../ROOME';
 
 
 
@@ -15,7 +15,7 @@ export class FloorViewComponent implements OnInit {
 
   canvas: any;
   
-  rOOM :ROOM ={
+  rOOM :ROOME ={
     name : "PetaSoba",
     id: 5,
     floor: 55,
@@ -98,11 +98,16 @@ export class FloorViewComponent implements OnInit {
     });
     canvas.add(group2);
 
-    
+    /*
     group1.on('selected', function(){ ///NZM KOJI DJAVO NECE NA 'mouse:down' mora na selected za sada
       console.log("Name: "+Room1.name +"\n" +"Number: "+Room1.number+"\n"+"Floor: "+Room1.floor);      ///Moras f12 i consolu da bi video
      });   
+*/
+     group1.on('selected', function(){ 
+     document.write("Name: "+Room1.name +"<br>" +"Number: "+Room1.number+"<br>"+"Floor: "+Room1.floor);      
+     }); 
 
+    
     group2.on('selected', function(){ //KAD KLIKNES NA group2 izbaci ti text 
       console.log("Name: "+Room2.name +"\n" +"Number: "+Room2.number+"\n"+"Floor: "+Room2.floor);
      });
