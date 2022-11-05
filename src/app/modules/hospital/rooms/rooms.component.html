@@ -34,6 +34,13 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>-->
+
+
+
+
+
+
+
 <div class="row">
   <mat-form-field appearance="fill">
   <mat-label>Building</mat-label>
@@ -58,3 +65,42 @@
 <div>
   <canvas id="c" ></canvas>
 </div>
+
+
+
+
+
+ <!--   ovo je za prikazivanje "{{ }}" sluzi za biding -->
+<div>
+
+  <td>
+    <tr>
+  <mat-label *ngIf="shownRoom"> Building Name : {{selectedBuilding}}
+    <button mat-icon-button>
+      <mat-icon matTooltip="update">edit</mat-icon>
+    </button>
+  </mat-label>  <!--- KAKO BUILDING NAME OvdeTreba 13B ili 13A -->
+    </tr>
+    <tr>
+
+  <mat-label *ngIf="shownRoom"> Building Type : {{selectedBuilding.buildingName}}
+    <button mat-icon-button>
+      <mat-icon matTooltip="update">edit</mat-icon>
+    </button>
+
+  </mat-label>
+    </tr>
+
+    <tr>
+  <mat-label *ngIf="shownRoom"> Floor : {{selectedFloor}}
+  </mat-label>
+    </tr>
+  </td>
+
+</div>
+
+<!-- >
+<button mat-icon-button (click)="updateRoom(room.id)"> OVAKO IZGLEDA UPDATE
+  <mat-icon matTooltip="update">edit</mat-icon>
+</button>
+-->

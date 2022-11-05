@@ -17,6 +17,10 @@ export class RoomsComponent implements OnInit {
   selectedBuilding: Building = new Building();
   selectedFloor: string = '';
   loadedRooms: Room[]=[];
+
+  shownRoom = false;  ///DA PRIKAZE SOBU KAD SE KLIKNE NA OBJEKAT SOBE
+
+
   //CONSTS
   floorLenght = 20;
   floorWidth = 15;
@@ -206,7 +210,9 @@ export class RoomsComponent implements OnInit {
         group.lockMovementX = true;
         group.lockMovementY = true;
 
-        group.on('mousedblclick', function () {
+
+        group.on('mousedblclick', () => { //MORA SE DODATI OVAJ handler da bi radio this.shownRoom
+          this.shownRoom=true; //PRIKAZE SPECIFIKACIJE SOBE
           console.log("Clicked on room: " + room.number);
         });
 
@@ -218,5 +224,7 @@ export class RoomsComponent implements OnInit {
     this.canvas.renderAll();
 
   }
+
+
 
 }
