@@ -43,3 +43,30 @@ p {
     float: left;
     margin-right: auto;
 }
+
+.prikaz{
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+  0 10px 10px rgba(0,0,0,0.22);
+  position:relative;
+
+  overflow: hidden;
+  max-width: 40%;
+  min-height: 300px;
+  margin:auto;
+  width: 40%;
+  padding: 10px;
+}
+
+.unos{
+  margin-top: 20px;
+  width: 60%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+.naslov{
+  margin: 5px 0;
+  text-align: center;
+}

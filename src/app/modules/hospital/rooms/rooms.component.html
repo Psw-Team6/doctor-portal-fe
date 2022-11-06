@@ -63,6 +63,48 @@
   </mat-form-field>
 </div>
 <div>
+
+  <div class="prikaz"  style="float: right;" *ngIf="shownRoom" >
+
+
+    <div>
+      <h1 class="naslov"  >Building Details</h1>
+    </div>
+
+    <div class="unos">
+      <mat-form-field appearance="legacy" *ngIf="shownRoom">
+        <mat-label  >Building Type </mat-label>
+        <input matInput type="text"  [(ngModel)]="selectedBuilding.buildingName">
+      </mat-form-field>
+      <button mat-icon-button *ngIf="shownRoom">
+        <mat-icon matTooltip="update">edit</mat-icon>
+      </button>
+    </div>
+
+    <div div class="unos" >
+      <mat-form-field appearance="legacy" *ngIf="shownRoom">
+        <mat-label  >Floor </mat-label>
+        <input matInput type="text"  [(ngModel)]="selectedFloor">
+      </mat-form-field>
+      <button mat-icon-button *ngIf="shownRoom">
+        <mat-icon matTooltip="update">edit</mat-icon>
+      </button>
+    </div>
+
+    <div  class="unos">
+      <mat-form-field appearance="legacy" *ngIf="shownRoom">
+        <mat-label>Building Name </mat-label>
+        <input matInput type="text"  [(ngModel)]="selectedRoom.number">
+      </mat-form-field>
+
+      <button mat-icon-button *ngIf="shownRoom">
+        <mat-icon matTooltip="update">edit</mat-icon>
+      </button>
+    </div>
+
+  </div>
+
+
   <canvas id="c" ></canvas>
 </div>
 
@@ -71,36 +113,11 @@
 
 
  <!--   ovo je za prikazivanje "{{ }}" sluzi za biding -->
-<div>
 
-  <td>
-    <tr>
-  <mat-label *ngIf="shownRoom"> Building Name : {{selectedBuilding}}
-    <button mat-icon-button>
-      <mat-icon matTooltip="update">edit</mat-icon>
-    </button>
-  </mat-label>  <!--- KAKO BUILDING NAME OvdeTreba 13B ili 13A -->
-    </tr>
-    <tr>
-
-  <mat-label *ngIf="shownRoom"> Building Type : {{selectedBuilding.buildingName}}
-    <button mat-icon-button>
-      <mat-icon matTooltip="update">edit</mat-icon>
-    </button>
-
-  </mat-label>
-    </tr>
-
-    <tr>
-  <mat-label *ngIf="shownRoom"> Floor : {{selectedFloor}}
-  </mat-label>
-    </tr>
-  </td>
-
-</div>
 
 <!-- >
 <button mat-icon-button (click)="updateRoom(room.id)"> OVAKO IZGLEDA UPDATE
-  <mat-icon matTooltip="update">edit</mat-icon>
+  <mat-icon matTooltip="update">edit</mat-icon aa>
 </button>
 -->
+

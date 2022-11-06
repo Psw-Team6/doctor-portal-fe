@@ -16,6 +16,9 @@ export class RoomsComponent implements OnInit {
 
   selectedBuilding: Building = new Building();
   selectedFloor: string = '';
+
+  selectedRoom :Room = new Room(); ///OVO OVDE MENJANO
+
   loadedRooms: Room[]=[];
 
   shownRoom = false;  ///DA PRIKAZE SOBU KAD SE KLIKNE NA OBJEKAT SOBE
@@ -212,6 +215,7 @@ export class RoomsComponent implements OnInit {
 
 
         group.on('mousedblclick', () => { //MORA SE DODATI OVAJ handler da bi radio this.shownRoom
+          this.selectedRoom = room; /// OVO OVDE DODATO
           this.shownRoom=true; //PRIKAZE SPECIFIKACIJE SOBE
           console.log("Clicked on room: " + room.number);
         });
