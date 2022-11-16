@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   }
   private readonly getDoctorAppointments=()=> {
-  this.client.getDoctorAppointments(this.doctorId).subscribe(
+  this.client.getDoctorAppointments("5247f675-6fc5-4700-be92-bc82524432ee").subscribe(
     {
       next: response => {
         this.appointments = response;
