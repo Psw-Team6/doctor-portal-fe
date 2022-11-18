@@ -42,7 +42,11 @@
   <button mat-icon-button (click)="searchRoom()">
     <mat-icon matTooltip="search">search</mat-icon>
   </button>
+  <button mat-icon-button (click)="clearSearch()">
+    <mat-icon matTooltip="clear">clear</mat-icon>
+  </button>
 </div>
+
 
 <div class="row">
   <mat-form-field appearance="fill">
@@ -58,7 +62,7 @@
 <div class="row">
   <mat-form-field appearance="fill">
     <mat-label>Floor</mat-label>
-    <mat-select [(ngModel)]="this.selectedFloor" name="selectedFloor" (selectionChange)="reloadRooms()">
+    <mat-select [(ngModel)]="this.selectedFloor" name="floor" (selectionChange)="reloadRooms()">
       <mat-option *ngFor="let floor of this.selectedBuilding.floors" [value]="floor">
         {{ floor.name }}
       </mat-option>

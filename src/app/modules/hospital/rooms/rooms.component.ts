@@ -477,27 +477,52 @@ export class RoomsComponent implements OnInit {
   }
   public searchRoom():void
   {
+    this.clearRooms();
+
+      if (this.findThisRoom.length > 0){
 
       this.allRooms.forEach(room=>{
-        if(room.name == this.findThisRoom){
-          console.log("Room>>> "+room.buildingId+" "+room.floorId+" "+room.name);
-          // NAdji sprat trazene sobe
-          this.allFloors.forEach(floor=>{
-            if (floor.id==room.floorId){
-              this.selectedFloor=floor;
+       if (this.selectedBuilding.name.length==0 || this.selectedBuilding.id==room.buildingId){
+          if(this.selectedFloor.name.length==0 || this.selectedFloor.id==room.floorId){
+             if(room.name.toLowerCase().includes(this.findThisRoom.toLowerCase())){
+              this.getBuildingByRoom(room);
+              this.getFloorByRoom(room);
+              this.reloadRooms();
+              this.selectRoom(room);
+              return;
             }
-          });
-          //Nadji bolnicu trazene sobe
-          this.allBuildings.forEach(building=>{
-            if (building.id==room.buildingId){
-              this.selectedBuilding=building;
-            }
-          });
-
-          this.reloadRooms();
-          this.selectRoom(room);
-          return;
+          }
         }
-      });    
-  }  
+      });
+    }
+  }
+
+  public getBuildingByRoom(room: Room):void
+  {
+    // RETURN value is in public  this.selectedBuilding
+    this.allBuildings.forEach(building=>{
+      if (building.id==room.buildingId){
+        this.selectedBuilding=building;
+      }
+    });
+  }
+
+  public getFloorByRoom(room: Room):void
+  {
+     // RETURN value is in public  this.selectedFloor
+    this.allFloors.forEach(floor=>{
+      if (floor.id==room.floorId){
+        this.selectedFloor=floor;
+      }
+    });
+  }
+  public clearSearch():void
+  {
+    this.findThisRoom="";
+    this.selectedFloor = new Floor();
+    this.selectedBuilding = new Building();
+    this.clearRooms();
+
+  }
+  
 }
