@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="example-container">
+    <div class="title-container">
+      <h1 class="title">Blood Units</h1>
+    </div>
+    <div class="float-container">
+      <div class="float-child">
+        <h3 class="title">Hospital status</h3>
+        <table mat-table [dataSource]="bloodUnitsSum"   class="example-table">
+          <!-- Number Column -->
+          <ng-container matColumnDef="Type">
+            <th mat-header-cell matSort *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let row">{{BloodTypeString(row.bloodType)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let row">{{row.amount}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Request">
+            <th mat-header-cell *matHeaderCellDef>Request</th>
+            <td mat-cell *matCellDef="let row"><button mat-mini-fab color="primary"  (click)="createBloodRequest(row.bloodType)" aria-label="Create unit request">
+              <mat-icon>alarm</mat-icon>
+            </button></td>
+          </ng-container>
+          <ng-container matColumnDef="Reduce">
+            <th mat-header-cell *matHeaderCellDef>Reduce</th>
+            <td mat-cell *matCellDef="let row"><button mat-mini-fab color="primary" (click)="createBloodConsumption(row.bloodType,row.amount)"  aria-label="Reduce unit amount">
+              <mat-icon>delete</mat-icon>
+            </button></td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div class="float-child">
+        <h3 class="title">My Consumptions</h3>
+        <table mat-table [dataSource]="consumptions"   class="example-table">
+          <!-- Number Column -->
+          <ng-container matColumnDef="Type">
+            <th mat-header-cell matSort *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let row">{{BloodTypeString(row.bloodUnit.bloodType)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Amount">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let row">{{row.amount}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let row">{{formatDate(row.date)}}</td>
+          </ng-container>
+          <ng-container matColumnDef="Purpose">
+            <th mat-header-cell *matHeaderCellDef>Purpose</th>
+            <td mat-cell *matCellDef="let row">{{row.purpose}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsConsumptions"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsConsumptions;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

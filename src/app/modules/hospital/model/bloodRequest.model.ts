@@ -1,5 +1,7 @@
+import {BloodType} from "../../../api/api-reference";
+
 export class BloodRequest {
-  type: string = '';
+  type: BloodType | undefined;
   amount: number | undefined;
   reason: string = '';
   date: Date = new Date();

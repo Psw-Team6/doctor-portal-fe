@@ -10,7 +10,7 @@ import { ErrorHandlerService } from './error-handler.service';
 })
 export class BloodbankService {
 
-  apiHost: string = 'http://localhost:5000/';
+  apiHost: string = 'http://localhost:5001/';
   bloodSupply: BloodSupply = new BloodSupply();
   bloodSupplySub: Subscription = new Subscription;
 
@@ -21,4 +21,5 @@ export class BloodbankService {
    checkBloodSupply(bloodType:string, bloodAmount:string): Observable <BloodSupply> {
     return this.http.get<BloodSupply>(this.apiHost + 'api/bloodbank/bloodSupply/'+ bloodType + '/'+ bloodAmount, { headers: this.headers }); 
   }
+
 }

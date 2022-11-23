@@ -34,6 +34,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 </div>-->
+<div style ="z-index: -1; position:relative;">
 <div  class="search">
   <mat-form-field appearance="legacy">
     <mat-label>Room search</mat-label>
@@ -137,15 +138,13 @@
       <ng-container matColumnDef="Edit"  >
         <th mat-header-cell *matHeaderCellDef > Edit </th>
         <td mat-cell *matCellDef="let element">
-          <button>
-            <a
-              class="badge badge-warning"
-              routerLink="/centres/{{ element.id }}">
-              Edit
-            </a> </button></td>
+          <button (click)="onEquipmentMoveClick(element)">
+              Move
+            </button></td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
       </table>
     </div>
 </div>
@@ -154,11 +153,14 @@
 
 <div>
   <canvas id="c" width="50%"></canvas>
+
+  
 </div>
 
 
 
 <div class="searchEquipment">
+
 
   <div>
     <mat-form-field appearance="legacy">
@@ -195,5 +197,82 @@
   </table>
 </div>
 
+
+<!--- PIKULIN DEO, NE DIRATI NI ZA ZIVU GLAVU!-->
+
+<div style="background-color: rgba(0, 0, 0, 0.5);width: 100%; height: 100%; position: absolute; top:0%;left:0%" *ngIf="this.tabNumber >0">
+<div class="forma" *ngIf="this.tabNumber >0">
+  
+  <button style="float: left; " (click)="exitEquipmentMovementForm()"> Exit </button>
+  <form>  
+    <div>
+      <h1 class="naslov">Equipment movement form</h1>
+    </div>
+
+    <div class="formaInputi" *ngIf="this.tabNumber===1">
+      <div>
+        <h1>Amount:</h1>
+        <input type="number">
+      </div>
+    </div>
+
+    <div class="formaInputi" *ngIf="tabNumber===2">
+      <div>
+        <h1>Destination room:</h1>
+        <mat-form-field appearance="fill">
+          <mat-label>Room</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let room of this.allRooms" [value]="room">
+              {{ room.name + ", " + this.getFloorNameByFloorId(room.floorId) + ", " + this.getBuildingNameByBuildingId(room.buildingId)}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="formaInputi" *ngIf="tabNumber===3">
+      <div>
+        <h1>Date interval:</h1>
+          <h2>Start date:</h2>
+          <input type="date">
+          <h2>End date:</h2>
+          <input type="date">
+      </div>
+    </div>
+
+    <div class="formaInputi" *ngIf="tabNumber===4">
+      <div >
+        <h1>Days:</h1>
+        <input type="number" value="0">
+      </div>
+      
+      <div>
+        <h1>Hours:</h1>
+        <input type="number" value="0">
+      </div>
+
+      <div>
+        <h1>Minutes:</h1>
+        <input type="number" value="0">
+      </div>
+    </div>
+
+    <div >
+      <div>
+        <div>
+          <button style="float: right;" (click)="nextPageInEquipmentMovement()"> NEXT </button>
+        </div>
+      </div>
+
+      <div *ngIf="tabNumber > 1">
+        <div>
+          <button style="float: left; " (click)="previousPageInEquipmentMovement()"> Back </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+  </div>
+</div>
 
 

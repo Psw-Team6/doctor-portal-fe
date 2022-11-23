@@ -1,0 +1,28 @@
+.container-f {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
+  0 10px 10px rgba(0,0,0,0.22);
+  position: relative;
+  overflow: hidden;
+  min-height: 580px;
+
+}
+
+.input-create-request {
+  margin-top: 8px;
+  width:40%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 60px;
+}
+
+.input-reason {
+  margin-top: 12px;
+  width: 40%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 140px;
+}

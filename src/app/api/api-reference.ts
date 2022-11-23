@@ -15,13 +15,8 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
-export interface IApplicationUserClient {
-  authenticate(loginRequest: LoginRequest): Observable<LoginResponse>;
-  getAllApplicationUsers(): Observable<ApplicationUser[]>;
-}
-
 @Injectable()
-export class ApplicationUserClient implements IApplicationUserClient {
+export class ApplicationUserClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -146,15 +141,8 @@ export class ApplicationUserClient implements IApplicationUserClient {
   }
 }
 
-export interface IAppointmentClient {
-  getAllAppointments(): Observable<AppointmentResponse[]>;
-  getById(id: string): Observable<AppointmentResponse>;
-  cancelAppointment(id: string): Observable<void>;
-  getDoctorAppointments(id: string): Observable<AppointmentResponse[]>;
-}
-
 @Injectable()
-export class AppointmentClient implements IAppointmentClient {
+export class AppointmentClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -404,15 +392,8 @@ export class AppointmentClient implements IAppointmentClient {
   }
 }
 
-export interface IBloodConsumptionClient {
-  getAllConsumptions(): Observable<BloodConsumption[]>;
-  getByBloodBankNameGET(bloodBankName: string | null): Observable<BloodConsumption[]>;
-  getByBloodBankNameGET2(doctorId: string): Observable<BloodConsumption[]>;
-  getByBloodBankNamePOST(doctorId: string, request: BloodConsumationRequest): Observable<BloodConsumption[]>;
-}
-
 @Injectable()
-export class BloodConsumptionClient implements IBloodConsumptionClient {
+export class BloodConsumptionClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -549,7 +530,7 @@ export class BloodConsumptionClient implements IBloodConsumptionClient {
     return _observableOf(null as any);
   }
 
-  getByBloodBankNameGET2(doctorId: string): Observable<BloodConsumption[]> {
+  getDoctorConsumptions(doctorId: string): Observable<BloodConsumption[]> {
     let url_ = this.baseUrl + "/api/v1/BloodConsumption/getDoctorConsumptions/{doctorId}";
     if (doctorId === undefined || doctorId === null)
       throw new Error("The parameter 'doctorId' must be defined.");
@@ -565,11 +546,11 @@ export class BloodConsumptionClient implements IBloodConsumptionClient {
     };
 
     return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-      return this.processGetByBloodBankNameGET2(response_);
+      return this.processgetDoctorConsumptions(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGetByBloodBankNameGET2(response_ as any);
+          return this.processgetDoctorConsumptions(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<BloodConsumption[]>;
         }
@@ -578,7 +559,7 @@ export class BloodConsumptionClient implements IBloodConsumptionClient {
     }));
   }
 
-  protected processGetByBloodBankNameGET2(response: HttpResponseBase): Observable<BloodConsumption[]> {
+  protected processgetDoctorConsumptions(response: HttpResponseBase): Observable<BloodConsumption[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -614,7 +595,7 @@ export class BloodConsumptionClient implements IBloodConsumptionClient {
     return _observableOf(null as any);
   }
 
-  getByBloodBankNamePOST(doctorId: string, request: BloodConsumationRequest): Observable<BloodConsumption[]> {
+  CreateConsumptions(doctorId: string, request: BloodConsumationRequest): Observable<BloodConsumption[]> {
     let url_ = this.baseUrl + "/api/v1/BloodConsumption/{doctorId}";
     if (doctorId === undefined || doctorId === null)
       throw new Error("The parameter 'doctorId' must be defined.");
@@ -634,11 +615,11 @@ export class BloodConsumptionClient implements IBloodConsumptionClient {
     };
 
     return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-      return this.processGetByBloodBankNamePOST(response_);
+      return this.processCreateConsumptions(response_);
     })).pipe(_observableCatch((response_: any) => {
       if (response_ instanceof HttpResponseBase) {
         try {
-          return this.processGetByBloodBankNamePOST(response_ as any);
+          return this.processCreateConsumptions(response_ as any);
         } catch (e) {
           return _observableThrow(e) as any as Observable<BloodConsumption[]>;
         }
@@ -647,7 +628,7 @@ export class BloodConsumptionClient implements IBloodConsumptionClient {
     }));
   }
 
-  protected processGetByBloodBankNamePOST(response: HttpResponseBase): Observable<BloodConsumption[]> {
+  protected processCreateConsumptions(response: HttpResponseBase): Observable<BloodConsumption[]> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse ? response.body :
@@ -684,14 +665,8 @@ export class BloodConsumptionClient implements IBloodConsumptionClient {
   }
 }
 
-export interface IBloodUnitClient {
-  getUnits(): Observable<BloodUnitDto[]>;
-  getAllBloodUnits(): Observable<BloodUnit[]>;
-  getAvailableBloodUnit(request: AvailableBloodUnitRequest): Observable<BloodUnit>;
-}
-
 @Injectable()
-export class BloodUnitClient implements IBloodUnitClient {
+export class BloodUnitClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -871,14 +846,8 @@ export class BloodUnitClient implements IBloodUnitClient {
   }
 }
 
-export interface IBuildingClient {
-  getAllBuildings(): Observable<BuildingResponse[]>;
-  update(buildingDto: BuildingRequest): Observable<void>;
-  getById(id: string): Observable<RoomResponse>;
-}
-
 @Injectable()
-export class BuildingClient implements IBuildingClient {
+export class BuildingClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -1064,16 +1033,8 @@ export class BuildingClient implements IBuildingClient {
   }
 }
 
-export interface IDoctorClient {
-  getAllDoctors(): Observable<DoctorResponse[]>;
-  createDoctor(doctorRequest: DoctorRequest): Observable<DoctorResponse>;
-  deleteById(id: string | undefined): Observable<void>;
-  getByUsername(username: string | null): Observable<DoctorResponse>;
-  getById(id: string): Observable<DoctorResponse>;
-}
-
 @Injectable()
-export class DoctorClient implements IDoctorClient {
+export class DoctorClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -1369,16 +1330,8 @@ export class DoctorClient implements IDoctorClient {
   }
 }
 
-export interface IFeedbackClient {
-  getAll(): Observable<FeedbackResponse[]>;
-  createFeedback(feedbackRequest: FeedbackRequest): Observable<FeedbackResponse>;
-  updateFeedbackStatus(feedbackStatusResponse: FeedbackStatusResponse): Observable<void>;
-  getAllPublic(): Observable<FeedbackResponse[]>;
-  getById(id: string): Observable<FeedbackResponse>;
-}
-
 @Injectable()
-export class FeedbackClient implements IFeedbackClient {
+export class FeedbackClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -1671,13 +1624,8 @@ export class FeedbackClient implements IFeedbackClient {
   }
 }
 
-export interface IFloorClient {
-  getAllFloors(): Observable<FloorResponse[]>;
-  update(floorDto: FloorRequest): Observable<void>;
-}
-
 @Injectable()
-export class FloorClient implements IFloorClient {
+export class FloorClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -1805,12 +1753,8 @@ export class FloorClient implements IFloorClient {
   }
 }
 
-export interface IGRoomsClient {
-  getAll(): Observable<GRoom[]>;
-}
-
 @Injectable()
-export class GRoomsClient implements IGRoomsClient {
+export class GRoomsClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -1876,14 +1820,8 @@ export class GRoomsClient implements IGRoomsClient {
   }
 }
 
-export interface IPatientClient {
-  getAllPatients(): Observable<PatientResponse[]>;
-  createPatient(patientRequest: PatientRequest): Observable<PatientResponse>;
-  getById(id: string): Observable<PatientResponse>;
-}
-
 @Injectable()
-export class PatientClient implements IPatientClient {
+export class PatientClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -2073,15 +2011,8 @@ export class PatientClient implements IPatientClient {
   }
 }
 
-export interface IRoomsClient {
-  getAll(): Observable<RoomResponse[]>;
-  update(roomDto: RoomRequest): Observable<void>;
-  getAllByBuildingAndFloor(buildingId: string, floorId: string): Observable<RoomResponse[]>;
-  getById(id: string): Observable<RoomResponse>;
-}
-
 @Injectable()
-export class RoomsClient implements IRoomsClient {
+export class RoomsClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -2335,15 +2266,8 @@ export class RoomsClient implements IRoomsClient {
   }
 }
 
-export interface ISpecializationsClient {
-  create(specializationDto: SpecializationRequest): Observable<SpecializationResponse>;
-  update(specializationDto: SpecializationRequest): Observable<void>;
-  getById(id: string): Observable<PatientResponse>;
-  getByName(name: string | null): Observable<SpecializationResponse>;
-}
-
 @Injectable()
-export class SpecializationsClient implements ISpecializationsClient {
+export class SpecializationsClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -2584,13 +2508,8 @@ export class SpecializationsClient implements ISpecializationsClient {
   }
 }
 
-export interface IHolidayClient {
-  getAllHolidays(): Observable<Holiday[]>;
-  scheduleHoliday(holiday: Holiday): Observable<void>;
-}
-
 @Injectable()
-export class HolidayClient implements IHolidayClient {
+export class HolidayClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -2711,13 +2630,8 @@ export class HolidayClient implements IHolidayClient {
   }
 }
 
-export interface IScheduleClient {
-  scheduleAppointment(appointmentRequest: AppointmentRequest): Observable<AppointmentResponse>;
-  rescheduleAppointment(appointmentRequest: AppointmentResponse): Observable<void>;
-}
-
 @Injectable()
-export class ScheduleClient implements IScheduleClient {
+export class ScheduleClient {
   private http: HttpClient;
   private baseUrl: string;
   protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -2852,7 +2766,6 @@ export class ScheduleClient implements IScheduleClient {
 export class LoginResponse implements ILoginResponse {
   message?: string | undefined;
   token?: string | undefined;
-  userToken?: UserToken | undefined;
 
   constructor(data?: ILoginResponse) {
     if (data) {
@@ -2867,7 +2780,6 @@ export class LoginResponse implements ILoginResponse {
     if (_data) {
       this.message = _data["message"];
       this.token = _data["token"];
-      this.userToken = _data["userToken"] ? UserToken.fromJS(_data["userToken"]) : <any>undefined;
     }
   }
 
@@ -2882,7 +2794,6 @@ export class LoginResponse implements ILoginResponse {
     data = typeof data === 'object' ? data : {};
     data["message"] = this.message;
     data["token"] = this.token;
-    data["userToken"] = this.userToken ? this.userToken.toJSON() : <any>undefined;
     return data;
   }
 }
@@ -2890,63 +2801,6 @@ export class LoginResponse implements ILoginResponse {
 export interface ILoginResponse {
   message?: string | undefined;
   token?: string | undefined;
-  userToken?: UserToken | undefined;
-}
-
-export class UserToken implements IUserToken {
-  id?: string;
-  email?: string | undefined;
-  role?: string | undefined;
-  username?: string | undefined;
-  name?: string | undefined;
-  surname?: string | undefined;
-
-  constructor(data?: IUserToken) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(_data?: any) {
-    if (_data) {
-      this.id = _data["id"];
-      this.email = _data["email"];
-      this.role = _data["role"];
-      this.username = _data["username"];
-      this.name = _data["name"];
-      this.surname = _data["surname"];
-    }
-  }
-
-  static fromJS(data: any): UserToken {
-    data = typeof data === 'object' ? data : {};
-    let result = new UserToken();
-    result.init(data);
-    return result;
-  }
-
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data["id"] = this.id;
-    data["email"] = this.email;
-    data["role"] = this.role;
-    data["username"] = this.username;
-    data["name"] = this.name;
-    data["surname"] = this.surname;
-    return data;
-  }
-}
-
-export interface IUserToken {
-  id?: string;
-  email?: string | undefined;
-  role?: string | undefined;
-  username?: string | undefined;
-  name?: string | undefined;
-  surname?: string | undefined;
 }
 
 export class ProblemDetails implements IProblemDetails {
@@ -3085,6 +2939,7 @@ export class ApplicationUser implements IApplicationUser {
   jmbg?: string | undefined;
   phone?: string | undefined;
   userRole?: UserRole;
+  enabled?: boolean;
 
   constructor(data?: IApplicationUser) {
     if (data) {
@@ -3108,6 +2963,7 @@ export class ApplicationUser implements IApplicationUser {
       this.jmbg = _data["jmbg"];
       this.phone = _data["phone"];
       this.userRole = _data["userRole"];
+      this.enabled = _data["enabled"];
     }
   }
 
@@ -3131,6 +2987,7 @@ export class ApplicationUser implements IApplicationUser {
     data["jmbg"] = this.jmbg;
     data["phone"] = this.phone;
     data["userRole"] = this.userRole;
+    data["enabled"] = this.enabled;
     return data;
   }
 }
@@ -3147,6 +3004,7 @@ export interface IApplicationUser {
   jmbg?: string | undefined;
   phone?: string | undefined;
   userRole?: UserRole;
+  enabled?: boolean;
 }
 
 export class Address implements IAddress {
@@ -3209,6 +3067,7 @@ export enum UserRole {
   Doctor = 0,
   Manager = 1,
   Patient = 2,
+  BloodBank = 3,
 }
 
 export class AppointmentResponse implements IAppointmentResponse {

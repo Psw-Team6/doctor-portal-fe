@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ApplicationUserClient, UserToken} from "../api/api-reference";
+import {UserToken} from "../model/UserToken";
 
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
@@ -8,10 +8,12 @@ const USER_KEY = 'auth-user';
   providedIn: 'root'
 })
 export class TokenStorageService {
-  constructor(private Ap: ApplicationUserClient) { }
+  constructor() { }
 
   signOut(): void {
     window.sessionStorage.clear();
+    window.sessionStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.removeItem(USER_KEY);
   }
   public saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
@@ -23,16 +25,19 @@ export class TokenStorageService {
   public isLoggedIn():boolean{
     return !!window.sessionStorage.getItem(TOKEN_KEY);
   }
-  public saveUser(user: UserToken): void {
+  public saveUser(token: string): void {
+    let user:string = atob(token.split('.')[1]);
+    let userObject = JSON.parse(user)
+    let userTk:UserToken = new UserToken(userObject.nameid,userObject.role,userObject.unique_name);
     console.log(user)
     window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(userTk));
   }
   public getUser(): UserToken {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user);
     }
-    return new UserToken();
+    return new UserToken("","","");
   }
 }

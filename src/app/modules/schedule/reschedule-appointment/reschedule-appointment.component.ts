@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import * as moment from "moment";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {AppointmentClient, AppointmentResponse, DateRange, ScheduleClient, UserToken} from "../../../api/api-reference";
+import {AppointmentClient, AppointmentResponse, DateRange, ScheduleClient} from "../../../api/api-reference";
 import {NgToastService} from "ng-angular-popup";
 import {UserService} from "../../../services/user.service";
 import {TokenStorageService} from "../../../services/token-storage.service";
+import {UserToken} from "../../../model/UserToken";
 
 
 @Component({

@@ -7,15 +7,15 @@
 
     <mat-form-field appearance="fill" class="input-create-request">
       <mat-label>Select blood type:</mat-label>
-      <mat-select [(value)]="request.type" required>
-        <mat-option value="Apos">A+</mat-option>
-        <mat-option value="Aneg">A-</mat-option>
-        <mat-option value="Bpos">B+</mat-option>
-        <mat-option value="Bneg">B-</mat-option>
-        <mat-option value="ABpos">AB+</mat-option>
-        <mat-option value="ABneg">AB-</mat-option>
-        <mat-option value="Opos">O+</mat-option>
-        <mat-option value="Oneg">O-</mat-option>
+      <mat-select [(value)]="request.type" [disabled]="true">
+        <mat-option [value]="request.type">A+</mat-option>
+        <mat-option [value]="request.type">A-</mat-option>
+        <mat-option [value]="request.type">B+</mat-option>
+        <mat-option [value]="request.type">B-</mat-option>
+        <mat-option [value]="request.type">AB+</mat-option>
+        <mat-option [value]="request.type">AB-</mat-option>
+        <mat-option [value]="request.type">O+</mat-option>
+        <mat-option [value]="request.type">O-</mat-option>
       </mat-select>
     </mat-form-field>
 

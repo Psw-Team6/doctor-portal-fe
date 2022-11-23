@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AppointmentClient, AppointmentResponse, UserToken} from "../../api/api-reference";
+import {AppointmentClient, AppointmentResponse} from "../../api/api-reference";
 import {MatTabChangeEvent} from "@angular/material/tabs";
-import {UserService} from "../../services/user.service";
 import {TokenStorageService} from "../../services/token-storage.service";
+import {UserToken} from "../../model/UserToken";
 
 @Component({
   selector: 'app-dashboard',

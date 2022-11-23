@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BloodBank } from '../model/bloodBank.model';
 import { BloodBankService } from '../services/blood-bank.service';
 
@@ -27,7 +28,7 @@ export class BloodBankChangePasswordComponent{
     repeatedNewPassword: new FormControl('',[Validators.required])
   })
 
-  constructor(private bloodBankService: BloodBankService, private router: Router) { }
+  constructor(private bloodBankService: BloodBankService, private router: Router,  private alert: NgToastService) { }
 
   get username(){
     return this.changePasswordForm.get('name')
@@ -73,7 +74,7 @@ export class BloodBankChangePasswordComponent{
       this.bloodBankService.updateBloodBank(this.bloodBank).subscribe(res =>{
         this.changePasswordForm.reset(this.changePasswordForm.value);
         window.location.reload();
-        alert("Password successful changed!")
+        this.alert.success({detail: 'Success!',summary:"Password successfuly changed!",duration:5000})
       })
     });
 

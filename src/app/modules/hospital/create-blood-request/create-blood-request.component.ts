@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {BloodRequest} from "../model/bloodRequest.model";
 import {NgToastService} from "ng-angular-popup";
+import {Router} from "@angular/router";
+import {TokenStorageService} from "../../../services/token-storage.service";
+import {UserToken} from "../../../model/UserToken";
 
 @Component({
   selector: 'app-create-blood-request',
@@ -13,9 +16,12 @@ export class CreateBloodRequestComponent implements OnInit {
   number_reg = new RegExp("\\d+")
   todayDate: Date;
 
-  constructor( private alert: NgToastService) {
+  constructor( private alert: NgToastService,private readonly router:Router,private tokenStorageService:TokenStorageService) {
     this.request = new BloodRequest();
     this.todayDate = new Date();
+    // @ts-ignore
+    this.request.type = this.router.getCurrentNavigation()?.extras.state.data
+    this.request.doctor =this.tokenStorageService.getUser().name;
   }
 
   ngOnInit(): void {
@@ -23,7 +29,6 @@ export class CreateBloodRequestComponent implements OnInit {
 
   createRequest() {
     this.request.status = "PENDING"
-    this.request.doctor = "Ilija"
     this.request.date = new Date(new Date(this.date).getFullYear(),new Date(this.date).getMonth(),new Date(this.date).getDay())
     if(this.validateFields())
       return
@@ -33,7 +38,7 @@ export class CreateBloodRequestComponent implements OnInit {
   }
 
   private validateFields() {
-    if(this.request.type=="" || this.request.type == undefined)
+    if( this.request.type == undefined)
     {
       this.alert.error({detail: 'Error!',summary:"Select blood type",duration:5000});
       return true;

@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="container-f">
+
+    <div class="title-container">
+      <h1 class="title">Create Blood Consumption</h1>
+    </div>
+
+    <mat-form-field appearance="fill" class="input-create-request">
+      <mat-label>Select blood type:</mat-label>
+      <mat-select [(value)]="request.bloodType" [disabled]="true">
+        <mat-option [value]="request.bloodType">A+</mat-option>
+        <mat-option [value]="request.bloodType">A-</mat-option>
+        <mat-option [value]="request.bloodType">B+</mat-option>
+        <mat-option [value]="request.bloodType">B-</mat-option>
+        <mat-option [value]="request.bloodType">AB+</mat-option>
+        <mat-option [value]="request.bloodType">AB-</mat-option>
+        <mat-option [value]="request.bloodType">O+</mat-option>
+        <mat-option [value]="request.bloodType">O-</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="input-create-request">
+      <mat-label>Amount:</mat-label>
+      <input matInput [(ngModel)]="request.amount" placeholder="Amount" type="number" min="0" required>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill" class="input-reason">
+      <mat-label>Purpose:</mat-label>
+      <textarea matInput [(ngModel)]="request.purpose" required></textarea>
+    </mat-form-field>
+
+    <div align="center">
+      <button mat-flat-button color="primary" (click)="createConsumption()">Create</button>
+    </div>
+
+  </div>
+</div>

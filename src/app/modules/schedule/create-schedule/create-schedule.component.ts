@@ -5,12 +5,14 @@ import {
   AppointmentState,
   AppointmentType,
   DateRange,
-  ScheduleClient, UserToken
+  ScheduleClient
 } from "../../../api/api-reference";
 import {NgToastService} from "ng-angular-popup";
 import * as moment from "moment/moment";
 import {UserService} from "../../../services/user.service";
 import {TokenStorageService} from "../../../services/token-storage.service";
+import {Router} from "@angular/router";
+import {UserToken} from "../../../model/UserToken";
 
 @Component({
   selector: 'app-create-schedule',
@@ -22,7 +24,9 @@ export class CreateScheduleComponent implements OnInit {
   patientId : string = "";
   doctorId : string="";
   userToken: UserToken;
-  constructor(private  fb: FormBuilder,private client: ScheduleClient, private alert: NgToastService,private userService: UserService,private tokenStorageService:TokenStorageService) {
+  constructor(private  fb: FormBuilder,private client: ScheduleClient,
+              private alert: NgToastService,private userService: UserService
+              ,private tokenStorageService:TokenStorageService,private router:Router) {
     console.log(this.tokenStorageService.getUser())
     this.userToken = this.tokenStorageService.getUser();
     this.myForm = this.fb.group({
@@ -81,6 +85,7 @@ export class CreateScheduleComponent implements OnInit {
         next: response => {
           app = response
           this.alert.success({detail: 'Success!', summary: "You are successfully schedule appointment!", duration: 5000})
+          this.router.navigate(['dashboard'])
           console.log(response)
         },
         error: message => {

@@ -1,0 +1,83 @@
+<div class="form">
+    <br>
+    <br>
+    <div>
+        <h1>Configure generated and sending reports</h1>
+        <br><br>
+        <form (ngSubmit)="saveConfiguration();">
+        
+            <div [formGroup]="groupForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Blood bank</mat-label>
+                <mat-select [(ngModel)]="configureGeenerateAndSend.bloodBankName" formControlName="name" required>
+                <mat-option *ngFor="let bloodBank of bloodBanks" [value]="bloodBank.name" >
+                    {{bloodBank.name}}
+                </mat-option>
+                </mat-select>
+            </mat-form-field>  
+        </div>
+            <br><br>        
+
+            <div [formGroup]="groupForm">
+                <h3>Choose period for <strong>generate </strong>report <span style="font-size: 12px;"> (recomended or custom)</span>:</h3> 
+                <mat-form-field appearance="fill" required>
+                <mat-label>Recommended </mat-label>
+                <select matNativeControl  (click)="isCustomSelected()" name="chooseRecomended" (click)="isRecomendedSelected()" [(ngModel)]="configureGeenerateAndSend.generatePeriod" formControlName="generatePeriod" required>
+                    <option value="ONE_MONTH">One month</option>
+                    <option value="TWO_MONTH">Two month</option>
+                    <option value="THREE_MONTH">Three month</option>
+                    <option value="SIX_MONTH">Six month</option>
+                    <option value="ONE_YEAR">One year</option>
+                    <option value="LAST_DAY">Last day</option>
+                    <option value="CUSTOM">Custom</option>
+                </select>
+                </mat-form-field>
+            </div>
+
+            <br>
+            <div>
+                <mat-form-field appearance="fill" *ngIf="showCustom" [(ngModel)]="showCustom">
+                    <mat-label>Custom period</mat-label>
+                    <input matInput [matDatepicker]="picker" [max]="maxDate"  name="chooseCustomDate" [(ngModel)]="configureGeenerateAndSend.generatePeriod">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker" (click)="isCustomDateSelected()"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <br>
+            <br>
+        
+            <div [formGroup]="groupForm">
+                <h3>Choose period for <strong> sending </strong>report <span style="font-size: 12px;">(recomended or custom)</span>:</h3>
+                <mat-form-field appearance="fill" (click)="isRecomendedSendingSelected()"  required>
+                <mat-label>Recommended </mat-label>
+                <select matNativeControl name="chooseRecomendedSending" (click)="isSendCustomSelected()" [(ngModel)]="configureGeenerateAndSend.sendPeriod" formControlName="sendPeriod" required>
+                    <option value="ONE_MONTH">Every  month</option>
+                    <option value="TWO_MONTH">Every two months</option>
+                    <option value="THREE_MONTH">Every three months</option>
+                    <option value="SIX_MONTH">Every six months</option>
+                    <option value="ONE_YEAR">Once a year</option>
+                    <option value="EVERY_TWO_MINUT">Every two minut</option>
+                    <option value="CUSTOM">Custom</option>
+                </select>
+                </mat-form-field>
+            </div>
+            <br><br>
+            <div>
+                <mat-form-field appearance="fill" *ngIf="showSendCustom" [(ngModel)]="showSendCustom">
+                    <mat-label>Custom period</mat-label>
+                    <input matInput [matDatepicker]="sendingPicker" [min]="minDate" name="chooseCustomDateSending" [(ngModel)]="configureGeenerateAndSend.sendPeriod">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="sendingPicker" (click)="isCustomDateSendingSelected()"></mat-datepicker-toggle>
+                    <mat-datepicker #sendingPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <br><br>
+            <div>
+                <button mat-stroked-button [disabled]="groupForm.invalid">Finish</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+  

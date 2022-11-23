@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="table-header">
+        <h1 class="table-title">News from hospital</h1>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="!isNewsEmpty">
+        <ng-container matColumnDef="Image" >
+            <th mat-header-cell *matHeaderCellDef class="cell-center"> Image </th>
+            <td mat-cell *matCellDef="let news" class="clickable cell-center">
+              <img [src]="news.base64image" width="100px" height="100px"/>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="Blood bank" >
+            <th mat-header-cell *matHeaderCellDef class="cell-center"> Blood bank </th>
+            <td mat-cell *matCellDef="let news" class="clickable cell-center">
+              <div> {{news.bloodBankName}}</div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="Title" >
+            <th mat-header-cell *matHeaderCellDef class="cell-center"> Title </th>
+            <td mat-cell *matCellDef="let news" class="clickable cell-center">
+              <div> {{news.title}}</div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="Content">
+            <th mat-header-cell *matHeaderCellDef class="cell-center"> News </th>
+            <td mat-cell *matCellDef="let news" class="cell-center">{{news.content}}</td>
+        </ng-container>
+        <ng-container matColumnDef="publish">
+            <th mat-header-cell *matHeaderCellDef class="cell-center"></th>
+            <td mat-cell *matCellDef="let news" class="cell-center">
+                <button mat-icon-button (click)="updateNews(news,  1)">
+                    <mat-icon matTooltip="publish">check</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="archive">
+            <th mat-header-cell *matHeaderCellDef class="cell-center"></th>
+            <td mat-cell *matCellDef="let news" class="cell-center">
+                <button mat-icon-button (click)="updateNews(news, 2)">
+                    <mat-icon matTooltip="archive">clear</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div *ngIf="isNewsEmpty">
+        <p>There is currently no news from blood banks.</p>
+    </div>
+</div>

@@ -1,3 +1,5 @@
+import { BloodBankChangePasswordComponent } from "../blood-bank-change-password/blood-bank-change-password.component";
+
 export class BloodBank {
     id: number = 0;
     name: string = '';
@@ -15,3 +17,15 @@ export class BloodBank {
         }
     }
 }
+
+export class BloodBankName {
+    name: string = '';
+
+    public constructor(obj?: any) {
+        if (obj) {
+            this.name = obj.name;
+        }
+    }
+}
+
+

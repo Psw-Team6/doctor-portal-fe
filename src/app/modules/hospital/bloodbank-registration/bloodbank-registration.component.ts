@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { BloodBank } from '../model/bloodBank.model';
 import { BloodBankService } from '../services/blood-bank.service';
 
@@ -19,7 +20,7 @@ export class BloodbankRegistrationComponent{
     email: new FormControl('',[Validators.email, Validators.required])
   })
 
-  constructor(private bloodBankService: BloodBankService, private router: Router) { }
+  constructor(private bloodBankService: BloodBankService, private router: Router, private alert: NgToastService) { }
 
   get name(){
     return this.registrationForm.get('name')
@@ -35,7 +36,7 @@ export class BloodbankRegistrationComponent{
 
   public createBloodBank() {
     this.bloodBankService.createBloodBank(this.bloodBank).subscribe(res => {
-      console.log("Success!")
+      this.alert.success({detail: 'Success!',summary:"Blood bank successfuly registered!",duration:5000})
     });
   }
 
