@@ -38,6 +38,11 @@ export const navbarData=[
     routeLink: 'bloodBank',
     icon: 'fal fa-tint',
     label: 'Blood Supply'
+  },
+  {
+    routeLink: 'holiday',
+    icon: 'fal fa-suitcase',
+    label: 'Holidays'
   }
 
 

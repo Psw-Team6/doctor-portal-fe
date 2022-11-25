@@ -21,11 +21,13 @@ import {authInterceptorProviders} from "./helpers/auth.interceptor";
 import { CreateBloodRequestComponent } from './modules/hospital/create-blood-request/create-blood-request.component';
 import {MatSelectModule} from "@angular/material/select";
 import { HospitalModule } from "./modules/hospital/hospital.module";
+import { ManagerHolidaysComponent } from './manager-holidays/manager-holidays.component';
 @NgModule({
   declarations: [
     AppComponent,
     BodyComponent,
-    SidenavComponent
+    SidenavComponent,
+    ManagerHolidaysComponent
   ],
   imports: [
     BrowserModule,
