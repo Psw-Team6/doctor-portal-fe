@@ -23,14 +23,18 @@ export class PatientStatisticsComponent implements OnInit {
   public middleAgeGroup: number = 0;
   public elderlyGroup: number = 0;
 
+
+
   public genderChart!: Chart<"bar", number[], string>;
   public ageChart!: Chart<"bar", number[], string>;
   public doctorPediatricChart!: Chart<"bar", number[], string>;
   public doctorYoungChart!: Chart<"bar", number[], string>;
   public doctorMiddleChart!: Chart<"bar", number[], string>;
   public doctorElderlyChart!: Chart<"bar", number[], string>;
-  
-  
+
+
+
+
   public doctorsPediatricName: string[] = [];
   public objectDoctorsPediatricCount: DoctorCount[] = []
   public doctorsPediatricCount: number[] = []
@@ -156,10 +160,10 @@ export class PatientStatisticsComponent implements OnInit {
     this.genderChart = new Chart("genderChart", {
       type: 'bar',
       data: {
-        labels: ['Female', 'Male', 'Other'], 
+        labels: ['Female', 'Male', 'Other'],
         datasets: [{
           label: 'by gender',
-          data: [this.genderFemale, this.genderMale, this.genderOther], 
+          data: [this.genderFemale, this.genderMale, this.genderOther],
           backgroundColor: "#000066",
           borderColor: "#000066",
           borderWidth: 1,

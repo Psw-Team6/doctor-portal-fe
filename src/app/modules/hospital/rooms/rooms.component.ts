@@ -36,6 +36,13 @@ export class RoomsComponent implements OnInit {
   displayedColumns2: string[] = [ 'roomId', 'equipmentName', 'amount'];
 
 
+  //For Displaying EquipmentMovement
+  MovedEquipment = new MatTableDataSource<EquipmentMovementAppointmentResponse[]> ;
+  displayedColumns3: string[] = [ 'equipmentName', 'amount', 'duration', 'OriginalRoom', 'DestinationRoom'];
+
+
+
+
   public oprema:RoomEquipment=new RoomEquipment();
 
   //SELECTED
@@ -489,6 +496,9 @@ export class RoomsComponent implements OnInit {
           console.log(result);
           this.equipment = new MatTableDataSource(<RoomEquipment[][]><unknown>result);
       }));
+        this.equipmentMovementService.getEquipmentMovementAppointmentById(this.selectedRoom.id).subscribe(res => {
+          this.MovedEquipment = new MatTableDataSource(<EquipmentMovementAppointmentResponse[][]><unknown>res);
+        });
 
           this.shownRoom = true; //PRIKAZE SPECIFIKACIJE SOBE
 
@@ -589,6 +599,15 @@ public ShowEquipmentOnMap(bilosta : RoomEquipment):void{ //Prikazuje sobu na map
    });
 
   }
+
+  public MoveEquipment() :void{
+
+    this.equipmentMovementService.getEquipmentMovementAppointmentById(this.selectedRoom.id).subscribe(res => {
+      this.MovedEquipment = new MatTableDataSource(<EquipmentMovementAppointmentResponse[][]><unknown>res);
+    });
+
+  }
+
 
   public SearchEquipment() :void{ //Dobavlja svu opremu
 
