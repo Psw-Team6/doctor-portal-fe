@@ -15,7 +15,7 @@ export class CreateTenderComponent implements OnInit {
   public dataSource = new MatTableDataSource<Tender>();
     tender : Tender;
     amountApos: BloodUnitAmount = new BloodUnitAmount;
-    amountAneg : BloodUnitAmount = new BloodUnitAmount;;
+    amountAneg : BloodUnitAmount = new BloodUnitAmount;
     amountBpos : BloodUnitAmount = new BloodUnitAmount;
     amountBneg : BloodUnitAmount = new BloodUnitAmount;
     amountABpos : BloodUnitAmount = new BloodUnitAmount;
@@ -28,7 +28,7 @@ export class CreateTenderComponent implements OnInit {
     hasDeadlineOption :string='';
 
 
-  constructor(private alert: NgToastService,private readonly router:Router,private tokenStorageService:TokenStorageService, private service:TenderService) { 
+  constructor(private alert: NgToastService,private readonly router:Router,private tokenStorageService:TokenStorageService, private service:TenderService) {
     this.tender = new Tender();
     this.todayDate = new Date();
   }
@@ -58,7 +58,7 @@ export class CreateTenderComponent implements OnInit {
  else
     this.tender.hasDeadline=true;
   }
-  
+
 
   createTender() {
     if (this.hasDeadlineOption==="HAS_DEADLINE")
@@ -67,7 +67,7 @@ export class CreateTenderComponent implements OnInit {
     this.tender.hasDeadline=false;
     if (this.tender.hasDeadline)
       this.tender.deadlineDate=new Date (new Date(this.date).getFullYear(),new Date(this.date).getMonth(),new Date(this.date).getDay());
-    else 
+    else
     this.tender.deadlineDate=this.todayDate;
       if(this.validateFields())
       return
@@ -81,24 +81,24 @@ export class CreateTenderComponent implements OnInit {
     this.tender.bloodUnitAmount.push(this.amountABneg);
     this.tender.bloodUnitAmount.push(this.amountOpos);
     this.tender.bloodUnitAmount.push(this.amountOneg);
-    
+
 
       this.service.create(this.tender).subscribe(res => {
         this.alert.success({detail: 'Success!',summary:"Tender created!",duration:5000})
-          
+
       })
     }
 
 
     private validateFields() {
-      if((this.amountApos?.amount==0 || this.amountApos?.amount == undefined) && 
-      (this.amountAneg?.amount==0 || this.amountAneg?.amount == undefined) && 
-      (this.amountBpos?.amount==0 || this.amountBpos?.amount == undefined) && 
-      (this.amountBneg?.amount==0 || this.amountBneg?.amount == undefined) && 
-      (this.amountABpos?.amount==0 || this.amountABpos?.amount == undefined) && 
-      (this.amountABneg?.amount==0 || this.amountABneg?.amount == undefined) && 
-      (this.amountOpos?.amount==0 || this.amountOpos?.amount == undefined) && 
-      (this.amountOneg?.amount==0 || this.amountOneg?.amount == undefined)      
+      if((this.amountApos?.amount==0 || this.amountApos?.amount == undefined) &&
+      (this.amountAneg?.amount==0 || this.amountAneg?.amount == undefined) &&
+      (this.amountBpos?.amount==0 || this.amountBpos?.amount == undefined) &&
+      (this.amountBneg?.amount==0 || this.amountBneg?.amount == undefined) &&
+      (this.amountABpos?.amount==0 || this.amountABpos?.amount == undefined) &&
+      (this.amountABneg?.amount==0 || this.amountABneg?.amount == undefined) &&
+      (this.amountOpos?.amount==0 || this.amountOpos?.amount == undefined) &&
+      (this.amountOneg?.amount==0 || this.amountOneg?.amount == undefined)
       )
       {
         this.alert.error({detail: 'Error!',summary:"Enter blood amount",duration:5000});

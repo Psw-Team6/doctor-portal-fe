@@ -28,6 +28,7 @@
     "fabric": "^5.2.4",
     "moment": "^2.29.4",
     "ng-angular-popup": "^0.2.0",
+    "ng2-charts": "^4.1.1",
     "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

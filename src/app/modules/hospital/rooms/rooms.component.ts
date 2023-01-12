@@ -22,9 +22,16 @@ import {
   DateRange,
   EquipmentMovementAppointmentResponse,
   EquipmentMovementAppointmentRequest,
-  Appointment
+  Appointment,
 } from 'src/app/api/api-reference';
 import {EquipmentMovementService} from "../services/equipmentMovement.service";
+import {OrderedTenderBlood, TenderOffer, TenderWithId} from "../model/tender.model";
+import {TenderService} from "../services/tender.services";
+import {BloodTypeToString} from "../blood-units/blood-units.component";
+import {Chart} from "chart.js";
+import {ChartType} from "chart.js";
+import {MatLabel} from "@angular/material/form-field";
+import { NgChartsModule } from 'ng2-charts';
 //import _default from "chart.js";
 //import numbers = _default.defaults.animations.numbers;
 
@@ -34,6 +41,10 @@ import {EquipmentMovementService} from "../services/equipmentMovement.service";
   styleUrls: ['./rooms.component.css']
 })
 export class RoomsComponent implements OnInit {
+
+
+
+
 
 
 //Show Equipment
@@ -55,7 +66,7 @@ export class RoomsComponent implements OnInit {
   displayedColumns4: string[] = [ 'emergent', 'startDate', 'endDate','doctorId','Delete'];
   public izabran2 : any ; // for splicing appointment matTable
 
-
+  public chart: any;
 
   ////For  Displaying Room Spltting
   shownRenovation = new MatTableDataSource<RoomSplitingResponse[]> ;   ///ZAMENI APPOINTMENT
@@ -69,8 +80,15 @@ export class RoomsComponent implements OnInit {
   public izabran4 : any ; // for splicing appointment matTable
 
 
+////
+  displayedColumnsTendersHistory: string[] = ['Type','Amount','Date', 'Price'];
+  public mojaproba = new MatTableDataSource<OrderedTenderBlood>();
 
 
+  public podaciTendera = new MatTableDataSource<TenderWithId[]>;
+  zatvorenTender:string[]=['bloodUnitAmount', 'price', 'bloodType']
+
+////
 
   //SELECTED
   public selectedBuilding: Building = new Building();
@@ -153,16 +171,46 @@ export class RoomsComponent implements OnInit {
   formEndDate: Date = new Date();
   formSelectedRoomId: string = '';
 
-  constructor(private equipmentMovementService:EquipmentMovementService, private roomService: RoomService, private buildingService: BuildingService, private groomService: GroomService, private floorService: FloorService, private roomEquipmentService :RoomEquipmentService,  private router: Router) { }
+  constructor(private equipmentMovementService:EquipmentMovementService, private roomService: RoomService, private buildingService: BuildingService, private groomService: GroomService, private floorService: FloorService, private roomEquipmentService :RoomEquipmentService, private tenderService: TenderService , private router: Router) { }
 
   ngOnInit(): void
   {
     this.setInitialSquares();
     this.reloadAllInfo();
     this.SearchEquipment(); //Poziva fju za dobavljanje soba
-
+    this.getTendere();
+  this.createChart();
   }
 
+  createChart(){
+
+    this.chart = new Chart("MyChart", {
+      type: 'bar', //this denotes tha type of chart
+
+      data: {// values on X-Axis
+        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
+          '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
+        datasets: [
+          {
+            label: "Sales",
+            data: ['467','576', '572', '79', '92',
+              '574', '573', '576'],
+            backgroundColor: 'blue'
+          },
+          {
+            label: "Profit",
+            data: ['542', '542', '536', '327', '17',
+              '0.00', '538', '541'],
+            backgroundColor: 'limegreen'
+          }
+        ]
+      },
+      options: {
+        aspectRatio:2.5
+      }
+
+    });
+  }
   getFloorNameByFloorId(id:string): string
   {
     let name = '';
@@ -660,6 +708,13 @@ public ShowEquipmentOnMap(bilosta : RoomEquipment):void{ //Prikazuje sobu na map
 
   }
 
+  public getTendere() :void{ //Dobavlja sve tendere
+
+    this.tenderService.getClosedTenders().subscribe(res => {
+      this.podaciTendera = new MatTableDataSource(<TenderWithId[][]><unknown>res);
+    });
+  }
+
   public applyFilter(event:Event) {    //Filtrira Opremu na search Equipment
 
         const filterValue = (event.target as HTMLInputElement).value;
@@ -944,7 +999,28 @@ public ShowEquipmentOnMap(bilosta : RoomEquipment):void{ //Prikazuje sobu na map
   }
 
 
+  BloodTypeString(bloodType: any) {
+    return ToString[bloodType]
+  }
+
+  formatDate = (date:any) => {
+    let d = new Date(date)
+    return `${d.getMonth().toString().padStart(2,'0')}/${d.getDate().toString().padStart(2,'0')}/${d.getFullYear()}`;
+  }
 
 
 
+
+
+}
+
+export enum ToString {
+  "A-"= 0,
+  "A+" = 1,
+  "B-" = 2,
+  "B+" = 3,
+  "AB+" = 4,
+  "AB-" = 5,
+  "O+" = 6,
+  "O-" = 7,
 }

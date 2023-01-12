@@ -70,6 +70,7 @@ export class OrderedTenderBlood implements IOrderedTenderBlood {
   bloodType?: BloodType;
   amount?: number;
   date?: Date;
+  price? : number
 
 
   constructor(data?: IOrderedTenderBlood) {
@@ -86,6 +87,7 @@ export class OrderedTenderBlood implements IOrderedTenderBlood {
       this.bloodType = _data["bloodType"];
       this.amount = _data["amount"];
       this.date = _data["date"] ? new Date(_data["date"].toString()) : <any>undefined;
+      this.price = _data["price"];
     }
   }
 
@@ -101,6 +103,7 @@ export class OrderedTenderBlood implements IOrderedTenderBlood {
     data["bloodType"] = this.bloodType;
     data["amount"] = this.amount;
     data["date"] = this.date ? this.date.toISOString() : <any>undefined;
+    data["price"] = this.price;
     return data;
   }
 }
@@ -109,4 +112,5 @@ export interface IOrderedTenderBlood {
   bloodType?: BloodType;
   amount?: number;
   date?: Date;
+  price?: number;
 }

@@ -32,6 +32,10 @@ export class RoomEquipmentService {
     return this.http.get<RoomEquipment[]>(this.apiHost + 'api/v1/RoomEquipment/SearchEquipmentByName/' + equipmentName, {headers: this.headers});
   }
 
+  getClosedTenders(): Observable<any>{
+    return this.http.get<any>('http://localhost:5000/api/v1/BloodUnit/getClosedTenders', {headers: this.headers})
+  }
+
 
 
 
