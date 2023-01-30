@@ -16,9 +16,9 @@ A web application for managing hospital operations, including patient examinatio
 3. Start the application
 
 ## Backend API
-The backend API for this project can be found at the following repository: https://github.com/lazarevicivana/hospital-be
+The backend API for this project can be found at the following repository: https://github.com/Psw-Team6/hospital-be
 ## Patient portal
-The link to the application (frontend) for patients is at the following URL : https://github.com/lazarevicivana/patient-portal-fe
+The link to the application (frontend) for patients is at the following URL : https://github.com/Psw-Team6/patient-portal-fe
 
 ## Screenshots
 - Login page
